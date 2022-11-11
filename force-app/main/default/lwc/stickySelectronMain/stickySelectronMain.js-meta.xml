@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+          <propertyType
+        name="T"
+        extends="SObject"
+        label="Input sObject Type"
+        description="Generic sObject data type used for input sObject list"
+      />
+          <property
+        name="inputSObjectsList"
+        type="{T[]}"
+        label="Input sObject List"
+        description="List of Objects"
+        required="true"
+      />
+          <property
+        name="selectedSObjectsList"
+        type="{T[]}"
+        label="Selected sObjects List"
+        description="List of Selected Objects"
+        required="true"
+      />
+          <property
+        name="tableHeader"
+        type="String"
+        label="Table Header"
+        description="Table Header"
+        required="true"
+        default="Records"
+      />
+          <property
+        name="listCount"
+        type="Integer"
+        label="Input List Count"
+        description="List Count"
+        required="true"
+        default="0"
+      /> 
+          <property
+        name="selectedListCount"
+        type="Integer"
+        label="Selected List Count"
+        description="Selected List Count"
+        required="true"
+        default="0"
+      /> 
+          <property
+        name="inputTableFieldNames"
+        type="String[]"
+        label="Input (Left) Table's Field Names"
+        description="(Optional) Specify the API names for left table"
+      />
+          <property
+        name="selectedTableFieldNames"
+        type="String[]"
+        label="Selected (Right) Table's Field Names"
+        description="(Optional) Specify the API names for right table"
+      /> 
+        </targetConfig>
+    </targetConfigs>
+
+</LightningComponentBundle>

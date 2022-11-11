@@ -1,0 +1,323 @@
+<template>
+  <div class="c-container">
+    <lightning-card icon-name="standard:contact" title={tableHeader}>
+      <div
+        class="slds-clearfix slds-var-m-top_large slds-var-m-bottom_large grid-buttons-container"
+      >
+        <div class="slds-float_left grid-select-all-button">
+          <lightning-button
+            variant="brand"
+            label="Select All"
+            title="Select-all"
+            onclick={handleSelectAll}
+            class="slds-var-m-right_small slds-var-m-right_xxx-small"
+          >
+          </lightning-button>
+        </div>
+
+        <div class="slds-float_left grid-search-container">
+          <div class="slds-float_right grid-search">
+            <lightning-layout>
+              <lightning-layout-item>
+                <lightning-input
+                  name="enter-search"
+                  type="search"
+                  placeholder="Search"
+                  oncommit={handleCommit}
+                >
+                </lightning-input>
+              </lightning-layout-item>
+              <lightning-layout-item>
+                <lightning-button
+                  variant="brand"
+                  label="Search"
+                  title="Search"
+                  onclick={handleClick}
+                  class="slds-var-m-left_small slds-var-m-right_xxx-small"
+                >
+                </lightning-button>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+        </div>
+
+        <div class="slds-float_right grid-deselect-all-button">
+          <lightning-button
+            variant="brand"
+            label="Deselect All"
+            title="Deselect-all"
+            onclick={handleUnSelectAll}
+            class="slds-var-m-right_small slds-var-m-right_xxx-small"
+          >
+          </lightning-button>
+        </div>
+      </div>
+
+      <div class="slds-clearfix">
+        <div
+          class="slds-float_left slds-var-m-top_xx-small slds-var-p-around_x-small slds-scrollable_y grid-main"
+        >
+          <!-- Spinner -->
+          <template if:true={isLoading}>
+            <div class="slds-var-p-around_x-large spinner">
+              <lightning-spinner
+                alternative-text="Loading"
+                size="large"
+                variant="brand"
+              >
+              </lightning-spinner>
+            </div>
+          </template>
+
+          <table
+            class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout"
+            role="grid"
+            aria-label="Table of Records in actionable mode with ascending column sorting"
+          >
+            <thead>
+              <tr class="slds-line-height_reset">
+                <template for:each={fieldsOnLeft} for:item="field">
+                  <template if:false={field.sorted}>
+                    <th
+                      key={field.label}
+                      aria-label={field.label}
+                      aria-sort="none"
+                      class="slds-is-sortable slds-cell_action-mode"
+                      scope="col"
+                      data-fieldname={field.fieldname}
+                      onclick={handleColSort}
+                    >
+                      <a
+                        class="slds-th__action slds-text-link_reset"
+                        href="#"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span class="slds-assistive-text">Sort by: </span>
+                        <div
+                          class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+                        >
+                          <span class="slds-truncate" title={field.label}
+                            >{field.label}</span
+                          >
+                          <span
+                            class="slds-icon_container slds-icon-utility-arrowup"
+                          >
+                            <svg
+                              class="slds-icon slds-icon-text-default slds-is-sortable__icon"
+                              aria-hidden="true"
+                            >
+                              <use
+                                xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowup"
+                              ></use>
+                            </svg>
+                          </span>
+                        </div>
+                      </a>
+                    </th>
+                  </template>
+                  <template if:true={field.sorted}>
+                    <template if:true={field.asc}>
+                      <th
+                        key={field.label}
+                        aria-label={field.label}
+                        aria-sort="descending"
+                        class="slds-is-sortable slds-is-sorted slds-cell_action-mode"
+                        scope="col"
+                        data-fieldname={field.fieldname}
+                        onclick={handleColSort}
+                      >
+                        <a
+                          class="slds-th__action slds-text-link_reset"
+                          href="#"
+                          role="button"
+                          tabindex="0"
+                        >
+                          <span class="slds-assistive-text">Sort by: </span>
+                          <div
+                            class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+                          >
+                            <span class="slds-truncate" title={field.label}
+                              >{field.label}</span
+                            >
+                            <span
+                              class="slds-icon_container slds-icon-utility-arrowup"
+                            >
+                              <svg
+                                class="slds-icon slds-icon-text-default slds-is-sortable__icon"
+                                aria-hidden="true"
+                              >
+                                <use
+                                  xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowup"
+                                ></use>
+                              </svg>
+                            </span>
+                          </div>
+                        </a>
+                      </th>
+                    </template>
+                    <template if:false={field.asc}>
+                      <th
+                        key={field.label}
+                        aria-label={field.label}
+                        aria-sort="ascending"
+                        class="slds-is-sortable slds-is-sorted slds-is-sorted_asc slds-cell_action-mode"
+                        scope="col"
+                        data-fieldname={field.fieldname}
+                        onclick={handleColSort}
+                      >
+                        <a
+                          class="slds-th__action slds-text-link_reset"
+                          href="#"
+                          role="button"
+                          tabindex="0"
+                        >
+                          <span class="slds-assistive-text">Sort by: </span>
+                          <div
+                            class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate"
+                          >
+                            <span class="slds-truncate" title={field.label}
+                              >{field.label}</span
+                            >
+                            <span
+                              class="slds-icon_container slds-icon-utility-arrowup"
+                            >
+                              <svg
+                                class="slds-icon slds-icon-text-default slds-is-sortable__icon"
+                                aria-hidden="true"
+                              >
+                                <use
+                                  xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#arrowup"
+                                ></use>
+                              </svg>
+                            </span>
+                          </div>
+                        </a>
+                      </th>
+                    </template>
+                  </template>
+                </template>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={workingInputObjList} for:item="sObj">
+                <tr key={sObj.Id} class="slds-hint-parent">
+                  <template for:each={fieldsOnLeft} for:item="leftFieldObj">
+                    <template if:true={leftFieldObj.fieldname}>
+                      <template if:false={leftFieldObj.isDynamic}>
+                        <td data-label="Select" key={leftFieldObj.fieldname}>
+                          <div
+                            class="slds-truncate"
+                            title="Select"
+                            data-key={sObj.Id}
+                            onclick={handleCheck}
+                          >
+                            <c-sticky-selectron-select-cell
+                              object={sObj}
+                              selected-map={selectedMap}
+                            ></c-sticky-selectron-select-cell>
+                          </div>
+                        </td>
+                      </template>
+                      <template if:true={leftFieldObj.isDynamic}>
+                        <td
+                          data-label={leftFieldObj.label}
+                          key={leftFieldObj.fieldname}
+                        >
+                          <c-sticky-selectron-data-cell
+                            field-name={leftFieldObj.fieldname}
+                            object={sObj}
+                          >
+                          </c-sticky-selectron-data-cell></td
+                      ></template>
+                    </template>
+                  </template>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          class="slds-float_right slds-var-m-top_xx-small slds-var-p-around_x-small slds-scrollable_y grid-selected"
+        >
+          <table
+            class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout"
+            role="grid"
+            aria-label="Table of Selected Records"
+          >
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                  <div class="slds-truncate" title="Remove">Remove</div>
+                </th>
+                <template for:each={fieldsOnRight} for:item="rightFieldObj">
+                  <template if:true={rightFieldObj.fieldname}>
+                    <th class="" scope="col" key={rightFieldObj.fieldname}>
+                      <div class="slds-truncate" title={rightFieldObj.label}>
+                        {rightFieldObj.label}
+                      </div>
+                    </th>
+                  </template>
+                </template>
+              </tr>
+            </thead>
+            <tbody>
+              <template if:false={selectedListCount}>
+                <tr>
+                  <td colspan="3">
+                    <p
+                      class="none-selected-message slds-text-align_center slds-var-m-around_medium"
+                    >
+                      Please select at least one record.
+                    </p>
+                  </td>
+                </tr>
+              </template>
+
+              <template for:each={workingSelectedObjList} for:item="sObj">
+                <tr key={sObj.Id} class="slds-hint-parent">
+                  <td data-label="Remove">
+                    <div class="slds-truncate" title="Remove">
+                      <lightning-button-icon
+                        icon-name="utility:dash"
+                        variant="border-filled"
+                        alternative-text="Remove"
+                        class="slds-var-m-left_xx-small"
+                        title="Remove"
+                        name={sObj.Id}
+                        onclick={handleRemove}
+                      >
+                        <label>Remove</label>
+                      </lightning-button-icon>
+                    </div>
+                  </td>
+
+                  <template for:each={fieldsOnRight} for:item="rightFieldObj">
+                    <template if:true={rightFieldObj.fieldname}>
+                      <td
+                        data-label={rightFieldObj.label}
+                        key={rightFieldObj.fieldname}
+                      >
+                        <c-sticky-selectron-data-cell
+                          field-name={rightFieldObj.fieldname}
+                          object={sObj}
+                        >
+                        </c-sticky-selectron-data-cell>
+                      </td>
+                    </template>
+                  </template>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </lightning-card>
+  </div>
+  <div class="slds-clearfix">
+    <div class="slds-float_right slds-var-m-top_x-small grid-count">
+      <p>Selected Count: {selectedListCount} of {listCount}</p>
+    </div>
+  </div>
+</template>

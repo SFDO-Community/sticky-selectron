@@ -1,0 +1,13 @@
+<template>
+  <label class={checkboxClasses} for={object.Id} data-key={object.Id}>
+    <input type="checkbox" class="slds-assistive-text" id={object.Id} />
+    <span
+      class="slds-icon_container slds-icon-utility-add slds-current-color"
+      title="Description of icon when needed"
+    >
+      <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#add"></use>
+      </svg>
+    </span>
+  </label>
+</template>

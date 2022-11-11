@@ -1,0 +1,35 @@
+minimum_cumulusci_version: "3.61.1"
+project:
+  name: StickySelectron
+  package:
+    name: StickySelectron
+    api_version: "52.0"
+  git:
+    default_branch: "main"
+  source_format: sfdx
+
+tasks:
+  robot:
+    options:
+      suites: robot/StickySelectron/tests
+      options:
+        outputdir: robot/StickySelectron/results
+
+  robot_testdoc:
+    options:
+      path: robot/StickySelectron/tests
+      output: robot/StickySelectron/doc/StickySelectron_tests.html
+
+  run_tests:
+    options:
+      required_org_code_coverage_percent: 75
+
+flows:
+  config_qa:
+    steps:
+      3:
+        task: load_dataset
+  config_dev:
+    steps:
+      3:
+        task: load_dataset
