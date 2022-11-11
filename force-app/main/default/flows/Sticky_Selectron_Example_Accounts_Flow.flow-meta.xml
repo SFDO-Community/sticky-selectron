@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>54.0</apiVersion>
     <assignments>
@@ -59,10 +59,8 @@
             <targetReference>Get_Accounts</targetReference>
         </connector>
     </assignments>
-    <description
-  >This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
-    <interviewLabel
-  >Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
+    <description>This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
+    <interviewLabel>Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Sticky Selectron Example Accounts Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -88,15 +86,14 @@
         <label>Get Accounts</label>
         <locationX>176</locationX>
         <locationY>278</locationY>
-        <assignNullValuesIfNoRecordsFound
-    >false</assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>LWC_Screen_Element</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>NumberOfEmployees</field>
-            <operator>NotEqualTo</operator>
+            <operator>GreaterThanOrEqualTo</operator>
             <value>
                 <numberValue>0.0</numberValue>
             </value>
@@ -171,8 +168,7 @@
                     <elementReference>selectedTableFieldNames</elementReference>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>InputAccountList</assignToReference>
@@ -203,8 +199,7 @@
         </connector>
         <fields>
             <name>displayContactIds</name>
-            <fieldText
-      >&lt;p&gt;We wait and do things now...&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;We wait and do things now...&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
