@@ -1,5 +1,8 @@
 # sticky-selectron
-Sticky LWC Team WIP
+The Sticky Selectron is a Datatable Lightning Component for easy record selection in a screen flow that will persist (or remain “sticky”) across flow screens.
+
+For project information, install instructions and documentation, please visit our [wiki](https://github.com/SFDO-Community/sticky-selectron/wiki).
+
 
 ## CCI Development
 
