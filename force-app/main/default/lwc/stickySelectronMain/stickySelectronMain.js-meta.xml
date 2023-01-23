@@ -62,6 +62,7 @@
         label="Input (Left) Table's Field Names"
         description="Collection of strings to specify the fields (API names) for left table"
         required="true"
+        default="Id"
       />
           <property
         name="selectedTableFieldNames"
@@ -69,6 +70,7 @@
         label="Selected (Right) Table's Field Names"
         description="Collection of strings to specify the fields (API names) for right table"
         required="true"
+        default="Id"
       /> 
         </targetConfig>
     </targetConfigs>
