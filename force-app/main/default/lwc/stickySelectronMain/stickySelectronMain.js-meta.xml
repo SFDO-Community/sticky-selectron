@@ -16,27 +16,27 @@
         name="T"
         extends="SObject"
         label="Input sObject Type"
-        description="Generic sObject data type used for input sObject list"
+        description="Select the object the component will use"
       />
           <property
         name="inputSObjectsList"
         type="{T[]}"
-        label="Input sObject List"
-        description="List of Objects"
+        label="Input sObject collection"
+        description="Collection storing the data you want to display in the component for the user to select from (displayed on the left)"
         required="true"
       />
           <property
         name="selectedSObjectsList"
         type="{T[]}"
-        label="Selected sObjects List"
-        description="List of Selected Objects"
+        label="Selected sObjects collection"
+        description="Collection storing the data the user has selected (displayed on the right side)"
         required="true"
       />
           <property
         name="tableHeader"
         type="String"
         label="Table Header"
-        description="Table Header"
+        description="Table header text to display"
         required="true"
         default="Records"
       />
@@ -44,7 +44,7 @@
         name="listCount"
         type="Integer"
         label="Input List Count"
-        description="List Count"
+        description="This is the count of items in the input sObject collection (number of records in the left table)"
         required="true"
         default="0"
       /> 
@@ -52,7 +52,7 @@
         name="selectedListCount"
         type="Integer"
         label="Selected List Count"
-        description="Selected List Count"
+        description="This is the count of selected items (number of records in the right table)"
         required="true"
         default="0"
       /> 
@@ -60,13 +60,15 @@
         name="inputTableFieldNames"
         type="String[]"
         label="Input (Left) Table's Field Names"
-        description="(Optional) Specify the API names for left table"
+        description="Collection of strings to specify the fields (API names) for left table"
+        required="true"
       />
           <property
         name="selectedTableFieldNames"
         type="String[]"
         label="Selected (Right) Table's Field Names"
-        description="(Optional) Specify the API names for right table"
+        description="Collection of strings to specify the fields (API names) for right table"
+        required="true"
       /> 
         </targetConfig>
     </targetConfigs>
