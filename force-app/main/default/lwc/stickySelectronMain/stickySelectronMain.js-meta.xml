@@ -43,17 +43,15 @@
           <property
         name="listCount"
         type="Integer"
-        label="Input List Count"
-        description="This is the count of items in the input sObject collection (number of records in the left table)"
-        required="true"
+        label="Output the count of inputSObjectsList records"
+        description="This property will output the count of items in the input sObject collection (number of records in the left table)"
         default="0"
       /> 
           <property
         name="selectedListCount"
         type="Integer"
-        label="Selected List Count"
-        description="This is the count of selected items (number of records in the right table)"
-        required="true"
+        label="Output the count of selectedSObjectsList records"
+        description="This property will output the count of selected sObject records (number of records in the right table)"
         default="0"
       /> 
           <property
