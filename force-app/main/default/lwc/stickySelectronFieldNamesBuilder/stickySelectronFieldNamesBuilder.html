@@ -1,0 +1,51 @@
+<template>
+  <template if:true={displayVol}>
+    <div class="slds-p-around_xx-small">
+      <lightning-slider
+        label="Volume"
+        step="10"
+        value={volume}
+        onchange={handleChange}
+      >
+      </lightning-slider></div
+  ></template>
+  <c-fsc_flow-combobox
+    name="inputSObjectsType"
+    label="inputSObjectsType"
+    value="Account"
+  ></c-fsc_flow-combobox>
+  <c-fsc_flow-combobox
+    name="inputSObjectsList"
+    label="inputSObjectsList"
+    value="!InputAccountList"
+  ></c-fsc_flow-combobox>
+  <c-fsc_flow-combobox
+    name="selectedSObjectsList"
+    label="selectedSObjectsList"
+    value="!SelectedAccountList"
+  ></c-fsc_flow-combobox>
+  <c-fsc_flow-combobox
+    name="tableHeader"
+    label="tableHeader"
+    builder-context-filter-type="String"
+    value="Accounts"
+  ></c-fsc_flow-combobox>
+  <c-fsc_flow-combobox
+    name="selectedListCount"
+    label="selectedListCount"
+    value="!SelectedListCount"
+  ></c-fsc_flow-combobox>
+  <c-fsc_flow-combobox
+    name="listCount"
+    label="listCount"
+    value="!ListCount"
+  ></c-fsc_flow-combobox>
+  <c-fsc_extended-base-dual-list-box
+    name="inputTableFieldNames"
+    label="inputTableFieldNames"
+  ></c-fsc_extended-base-dual-list-box>
+  <c-fsc_extended-base-dual-list-box
+    name="selectedTableFieldNames"
+    label="selectedTableFieldNames"
+  ></c-fsc_extended-base-dual-list-box>
+</template>

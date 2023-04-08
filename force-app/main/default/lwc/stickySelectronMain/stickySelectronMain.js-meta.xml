@@ -11,7 +11,10 @@
     </targets>
 
     <targetConfigs>
-        <targetConfig targets="lightning__FlowScreen">
+        <targetConfig
+      targets="lightning__FlowScreen"
+      configurationEditor="c-sticky-selectron-field-names-builder"
+    >
           <propertyType
         name="T"
         extends="SObject"
