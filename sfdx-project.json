@@ -2,7 +2,15 @@
   "packageDirectories": [
     {
       "path": "force-app",
-      "default": true
+      "default": true,
+      "dependencies": [
+        {
+          "package": "FlowActionsBasePack@3.14.0-0"
+        },
+        {
+          "package": "FlowScreenComponentsBasePack@3.0.19-0"
+        }
+      ]
     }
   ],
   "name": "sticky-selectron",

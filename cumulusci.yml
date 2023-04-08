@@ -7,6 +7,11 @@ project:
   git:
     default_branch: "main"
   source_format: sfdx
+  dependencies:
+    - namespace: usf
+      version: 2.35.0
+    - version_id: 04t8b000001BTf1AAG
+    - version_id: 04t5G000004C6vbQAC
 
 tasks:
   robot:
