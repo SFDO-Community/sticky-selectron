@@ -3,7 +3,8 @@ project:
   name: StickySelectron
   package:
     name: StickySelectron
-    api_version: "52.0"
+    api_version: "57.0"
+    namespace: slctrn
   git:
     default_branch: "main"
   source_format: sfdx
