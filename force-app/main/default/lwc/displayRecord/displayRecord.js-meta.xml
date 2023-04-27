@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <masterLabel>Display Record v3</masterLabel>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen" configurationEditor="c-display-record-editor">
+            <propertyType name="T" extends="SObject" label="Input Type"
+                description="Generic sObject data type used for input sObject properties" />
+            <property name="inputValue2" type="{T}" label="input value" role="inputOnly" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
