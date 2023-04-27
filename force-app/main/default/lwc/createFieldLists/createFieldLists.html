@@ -1,0 +1,113 @@
+<template>
+  <h2 class="slds-section__title">Configure Main Data Table</h2>
+  <div class="slds-form-element">
+    <div class="slds-form-element__control">
+      <lightning-layout>
+        <lightning-layout-item>
+          <lightning-input
+            label="Main Field Name"
+            name="enter-main-field"
+            type="text"
+            placeholder="Enter main field name…"
+            class="slds-input"
+            data-section="add-main"
+            oncommit={handleAdd}
+          >
+          </lightning-input>
+          <br />
+          <lightning-button
+            variant="brand"
+            label="Add Main Field"
+            title="Add Main Field"
+          >
+          </lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+    <br />
+    <h3 class="slds-section__title">Main Field List</h3>
+    <div class="slds-box slds-box_small slds-theme_default">
+      <template if:false={mainFieldsListEmpty}>
+        <ul>
+          <template for:each={mainFields} for:item="mainField">
+            <li key={mainField.Id}>{mainField.Name}</li>
+          </template>
+        </ul>
+      </template>
+      <template if:true={mainFieldsListEmpty}
+        ><p class="alert">
+          ALERT: Main Field List is empty. Please add a field.
+        </p>
+      </template>
+    </div>
+    <br />
+    <lightning-layout>
+      <lightning-layout-item>
+        <lightning-button
+          variant="brand"
+          label="Clear All Main Fields"
+          title="Clear All Main Fields"
+          data-section="clear-main"
+          onclick={handleClear}
+        >
+        </lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+
+  <h2 class="slds-section__title">Configure Selected Data Table</h2>
+  <div class="slds-form-element">
+    <div class="slds-form-element__control">
+      <lightning-layout>
+        <lightning-layout-item>
+          <lightning-input
+            label="Selected Field Name"
+            name="enter-selected-field"
+            type="text"
+            placeholder="Enter selected field name…"
+            class="slds-input"
+            data-section="add-selected"
+            oncommit={handleAdd}
+          >
+          </lightning-input>
+          <br />
+          <lightning-button
+            variant="brand"
+            label="Add Selected Field"
+            title="Add Selected Field"
+          >
+          </lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+    <br />
+    <h3 class="slds-section__title">Selected Field List</h3>
+    <div class="slds-box slds-box_small slds-theme_default">
+      <template if:false={selectedFieldsListEmpty}>
+        <ul>
+          <template for:each={selectedFields} for:item="selectedField">
+            <li key={selectedField.Id}>{selectedField.Name}</li>
+          </template>
+        </ul>
+      </template>
+      <template if:true={selectedFieldsListEmpty}
+        ><p class="alert">
+          ALERT: Selected Field List is empty. Please add a field.
+        </p>
+      </template>
+    </div>
+    <br />
+    <lightning-layout>
+      <lightning-layout-item>
+        <lightning-button
+          variant="brand"
+          label="Clear All Selected Fields"
+          title="Clear All Selected Fields"
+          data-section="clear-selected"
+          onclick={handleClear}
+        >
+        </lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+</template>

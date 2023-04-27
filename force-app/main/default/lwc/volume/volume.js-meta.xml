@@ -1,0 +1,14 @@
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <masterLabel>Volume</masterLabel>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen"
+            configurationEditor="c-volume-editor">
+            <property name="volume" type="Integer" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

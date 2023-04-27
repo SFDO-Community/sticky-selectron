@@ -1,0 +1,37 @@
+<template>
+
+  <!-- ********* Volume ********* -->
+
+  <div class="slds-var-p-around_xx-small">
+    <lightning-slider
+      label="Volume"
+      step="10"
+      value={volume}
+      onchange={handleChange}
+    >
+    </lightning-slider>
+  </div>
+
+  <!-- ***** Display Record ***** -->
+
+  <lightning-combobox
+    name="inputType"
+    label="Object for Record Variable"
+    value={inputType}
+    placeholder="Select object..."
+    options={typeOptions}
+    onchange={handleInputTypeChange}
+  >
+  </lightning-combobox>
+
+  <lightning-combobox
+    name="inputValue2"
+    label="Record Variable"
+    value={inputValue2}
+    placeholder="Select record variable..."
+    options={valueOptions}
+    onchange={handleValueChange}
+  >
+  </lightning-combobox>
+
+</template>
