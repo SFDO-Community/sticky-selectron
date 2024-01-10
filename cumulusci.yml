@@ -34,3 +34,8 @@ flows:
     steps:
       3:
         task: load_dataset
+orgs:
+  scratch:
+    dev_long:
+      config_file: orgs/dev.json
+      days: 30
