@@ -5,7 +5,7 @@
         <name>setFieldNames</name>
         <label>setTableFieldNames</label>
         <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <assignmentItems>
             <assignToReference>inputTableFieldNames</assignToReference>
             <operator>Add</operator>
@@ -60,6 +60,7 @@
         </connector>
     </assignments>
     <description>This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
+    <environments>Default</environments>
     <interviewLabel>Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Sticky Selectron Example Accounts Flow</label>
     <processMetadataValues>
@@ -85,7 +86,7 @@
         <name>Get_Accounts</name>
         <label>Get Accounts</label>
         <locationX>176</locationX>
-        <locationY>278</locationY>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>LWC_Screen_Element</targetReference>
@@ -111,7 +112,7 @@
         <name>LWC_Screen_Element</name>
         <label>LWC Screen Element</label>
         <locationX>176</locationX>
-        <locationY>398</locationY>
+        <locationY>350</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -119,7 +120,7 @@
             <targetReference>Selected_IDs_Screen_Element</targetReference>
         </connector>
         <fields>
-            <name>Display_Sticky_Selectron_Accounts</name>
+            <name>grid</name>
             <dataTypeMappings>
                 <typeName>T</typeName>
                 <typeValue>Account</typeValue>
@@ -127,9 +128,9 @@
             <extensionName>c:stickySelectronMain</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
-                <name>listCount</name>
+                <name>inputTableFieldNames</name>
                 <value>
-                    <elementReference>ListCount</elementReference>
+                    <elementReference>inputTableFieldNames</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -139,9 +140,9 @@
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>selectedListCount</name>
+                <name>selectedTableFieldNames</name>
                 <value>
-                    <elementReference>SelectedListCount</elementReference>
+                    <elementReference>selectedTableFieldNames</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -151,28 +152,22 @@
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>tableHeader</name>
+                <name>listCount</name>
                 <value>
-                    <stringValue>Accounts</stringValue>
+                    <elementReference>ListCount</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>inputTableFieldNames</name>
+                <name>selectedListCount</name>
                 <value>
-                    <elementReference>inputTableFieldNames</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>selectedTableFieldNames</name>
-                <value>
-                    <elementReference>selectedTableFieldNames</elementReference>
+                    <elementReference>SelectedListCount</elementReference>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
-                <assignToReference>InputAccountList</assignToReference>
-                <name>inputSObjectsList</name>
+                <assignToReference>ListCount</assignToReference>
+                <name>listCount</name>
             </outputParameters>
             <outputParameters>
                 <assignToReference>SelectedListCount</assignToReference>
@@ -190,11 +185,12 @@
         <name>Selected_IDs_Screen_Element</name>
         <label>Selected IDs Screen Element</label>
         <locationX>176</locationX>
-        <locationY>518</locationY>
+        <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>LWC_Screen_Element</targetReference>
         </connector>
         <fields>
@@ -281,6 +277,16 @@
         <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>sObjectApiName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Account</stringValue>
+        </value>
     </variables>
     <variables>
         <name>TableHeader</name>
