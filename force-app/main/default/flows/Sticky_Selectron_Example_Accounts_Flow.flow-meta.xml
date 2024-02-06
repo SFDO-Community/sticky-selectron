@@ -163,6 +163,12 @@
                     <elementReference>SelectedListCount</elementReference>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>tableHeader</name>
+                <value>
+                    <stringValue>Records</stringValue>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
