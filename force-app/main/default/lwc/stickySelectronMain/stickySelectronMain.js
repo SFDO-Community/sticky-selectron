@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable @lwc/lwc/no-api-reassignments */
 import { LightningElement, api, track } from "lwc";
+import getFieldLabels from "@salesforce/apex/FieldLabelController.getFieldLabels";
+import getSObjectType from "@salesforce/apex/FieldLabelController.getSObjectType";
 
 // Note that sometimes we are dealing with a Proxy object and want to print it to console
 // while debugging
@@ -69,22 +71,41 @@ export default class StickySelectronMain extends LightningElement {
   isAsc = true;
   sortedField = "Name";
 
-  connectedCallback() {
+  async connectedCallback() {
+    /*
+    console.log("inputTableFieldNames: ", this.inputTableFieldNames);
+    console.log("tableHeader: ", this.tableHeader);
+    console.log("sObjectApiName: ", this.sObjectApiName);
+    console.log("workingInputObjList: ", this.workingInputObjList);
+    */
+    // get sobject type
+    const sObjectType = await getSObjectType({
+      record: this.workingInputObjList[0],
+    });
+    console.log("sObjectType: ", sObjectType);
     if (this.inputTableFieldNames && this.inputTableFieldNames.length) {
       for (let inputTableFieldName of this.inputTableFieldNames) {
+        const fieldLabel = await getFieldLabels({
+          objectName: sObjectType,
+          fieldAPIName: inputTableFieldName,
+        });
         this.fieldsOnLeft.push({
-          label: inputTableFieldName,
+          label: fieldLabel,
           fieldname: inputTableFieldName,
-          isDynamic: true
+          isDynamic: true,
         });
       }
     }
     if (this.selectedTableFieldNames && this.selectedTableFieldNames.length) {
       for (let selectedTableFieldName of this.selectedTableFieldNames) {
+        const fieldLabel = await getFieldLabels({
+          objectName: sObjectType,
+          fieldAPIName: selectedTableFieldName,
+        });
         this.fieldsOnRight.push({
-          label: selectedTableFieldName,
+          label: fieldLabel,
           fieldname: selectedTableFieldName,
-          isDynamic: true
+          isDynamic: true,
         });
       }
     }
