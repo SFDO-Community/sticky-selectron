@@ -37,10 +37,18 @@ flows:
     steps:
       3:
         task: load_dataset
+      4:
+        task: deploy_example_flows
+        ui_options:
+          is_required: False
   config_dev:
     steps:
       3:
         task: load_dataset
+      4:
+        task: deploy_example_flows
+        ui_options:
+          is_required: False
   customer_org:
     steps:
       1:
