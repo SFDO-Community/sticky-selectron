@@ -56,7 +56,6 @@ plans:
     slug: install
     title: Install Sticky Selectron
     tier: primary
-    is_listed: True
     preflight_message: "This will install Sticky Selectron (slctrn) in your org."
     post_install_message: "Thanks for installing Sticky Selectron (slctrn)."
     error_message: "To get help, please visit our [Sticky Selectron Documentation](https://sfdo-community-sprints.github.io/SSSFDG/)"
