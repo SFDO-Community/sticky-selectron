@@ -1,15 +1,19 @@
 public with sharing class FieldLabelController {
     @AuraEnabled(cacheable=true)
     public static String getFieldLabels(String objectName, String fieldAPIName) {
-        System.debug('objectName: ' + objectName);
-        System.debug('fieldApiNames: ' + fieldAPIName);
-        List<String> fieldLabels = new List<String>();
-        Map<String, Schema.SObjectField> fieldMap = Schema.getGlobalDescribe().get(objectName).getDescribe().fields.getMap();
-        return fieldMap.get(fieldAPIName).getDescribe().getLabel();
+        String label = null;
+        try {
+            List<String> fieldLabels = new List<String>();
+            Map<String, Schema.SObjectField> fieldMap = Schema.getGlobalDescribe().get(objectName).getDescribe().fields.getMap();
+            label = fieldMap.get(fieldAPIName).getDescribe().getLabel();
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+        return label;
     }
+
     @AuraEnabled(cacheable=true)
     public static String getSObjectType(sObject record){
-        System.debug('records: ' + record);
         String sObjectType = null;
         try {
             Id recordId = record.Id;
