@@ -59,13 +59,11 @@
             <targetReference>Get_Accounts</targetReference>
         </connector>
     </assignments>
-    <description>
-        This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects
-    </description>
+    <description
+  >This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
     <environments>Default</environments>
-    <interviewLabel>
-        Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}
-    </interviewLabel>
+    <interviewLabel
+  >Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Sticky Selectron Example Accounts Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -91,9 +89,8 @@
         <label>Get Accounts</label>
         <locationX>176</locationX>
         <locationY>242</locationY>
-        <assignNullValuesIfNoRecordsFound>
-            false
-        </assignNullValuesIfNoRecordsFound>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>LWC_Screen_Element</targetReference>
         </connector>
@@ -132,9 +129,8 @@
                 <typeValue>Account</typeValue>
             </dataTypeMappings>
             <!--<extensionName>slctrn:stickySelectronMain</extensionName>-->
-            <extensionName>
-                %%%NAMESPACE_OR_C%%%:stickySelectronMain
-            </extensionName>
+            <extensionName
+      >%%%NAMESPACE_OR_C%%%:stickySelectronMain</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>inputTableFieldNames</name>
@@ -178,9 +174,8 @@
                     <stringValue>Records</stringValue>
                 </value>
             </inputParameters>
-            <inputsOnNextNavToAssocScrn>
-                UseStoredValues
-            </inputsOnNextNavToAssocScrn>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>ListCount</assignToReference>
@@ -212,9 +207,8 @@
         </connector>
         <fields>
             <name>displayContactIds</name>
-            <fieldText>
-                &lt;p&gt;We wait and do things now...&lt;/p&gt;
-            </fieldText>
+            <fieldText
+      >&lt;p&gt;We wait and do things now...&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
