@@ -3,6 +3,7 @@
 import { LightningElement, api, track } from "lwc";
 import getFieldLabels from "@salesforce/apex/FieldLabelController.getFieldLabels";
 import getSObjectType from "@salesforce/apex/FieldLabelController.getSObjectType";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 // Note that sometimes we are dealing with a Proxy object and want to print it to console
 // while debugging
@@ -78,37 +79,90 @@ export default class StickySelectronMain extends LightningElement {
     console.log("sObjectApiName: ", this.sObjectApiName);
     console.log("workingInputObjList: ", this.workingInputObjList);
     */
-    // get sobject type
-    const sObjectType = await getSObjectType({
-      record: this.workingInputObjList[0],
-    });
-    console.log("sObjectType: ", sObjectType);
-    if (this.inputTableFieldNames && this.inputTableFieldNames.length) {
-      for (let inputTableFieldName of this.inputTableFieldNames) {
-        const fieldLabel = await getFieldLabels({
-          objectName: sObjectType,
-          fieldAPIName: inputTableFieldName,
-        });
-        this.fieldsOnLeft.push({
-          label: fieldLabel,
-          fieldname: inputTableFieldName,
-          isDynamic: true,
-        });
+    // get sobject type and labels for fields
+    let sObjectType = null;
+    try {
+      sObjectType = await getSObjectType({
+        record: this.workingInputObjList[0],
+      });
+    } catch (error) {
+      const msg =
+        "An error has occurred when loading sObject Type, please check component configuration and APEX debug logs for more information. (" +
+        error.body.message +
+        ")";
+      console.error("Error: ", error);
+      console.error("Msg: ", msg);
+      const evt = new ShowToastEvent({
+        title: "Sticky Selectron Error",
+        message: msg,
+        variant: "error",
+      });
+      this.dispatchEvent(evt);
+    }
+    if (sObjectType) {
+      console.log("sObjectType: ", sObjectType);
+      if (this.inputTableFieldNames && this.inputTableFieldNames.length) {
+        for (let inputTableFieldName of this.inputTableFieldNames) {
+          try {
+            const fieldLabel = await getFieldLabels({
+              objectName: sObjectType,
+              fieldAPIName: inputTableFieldName,
+            });
+            this.fieldsOnLeft.push({
+              label: fieldLabel,
+              fieldname: inputTableFieldName,
+              isDynamic: true,
+            });
+          } catch (error) {
+            const msg =
+              "An error has occurred when loading field labels for input table field name [" +
+              inputTableFieldName +
+              "], please check component configuration and APEX debug logs for more information. (" +
+              error.body.message +
+              ")";
+            console.error("Error: ", error);
+            console.error("Msg: ", msg);
+            const evt = new ShowToastEvent({
+              title: "Sticky Selectron Error",
+              message: msg,
+              variant: "error",
+            });
+            this.dispatchEvent(evt);
+          }
+        }
+      }
+      if (this.selectedTableFieldNames && this.selectedTableFieldNames.length) {
+        for (let selectedTableFieldName of this.selectedTableFieldNames) {
+          try {
+            const fieldLabel = await getFieldLabels({
+              objectName: sObjectType,
+              fieldAPIName: selectedTableFieldName,
+            });
+            this.fieldsOnRight.push({
+              label: fieldLabel,
+              fieldname: selectedTableFieldName,
+              isDynamic: true,
+            });
+          } catch (error) {
+            const msg =
+              "An error has occurred when loading field labels for selected table field name [" +
+              selectedTableFieldName +
+              "], please check component configuration and APEX debug logs for more information. (" +
+              error.body.message +
+              ")";
+            console.error("Error: ", error);
+            console.error("Msg: ", msg);
+            const evt = new ShowToastEvent({
+              title: "Sticky Selectron Error",
+              message: msg,
+              variant: "error",
+            });
+            this.dispatchEvent(evt);
+          }
+        }
       }
     }
-    if (this.selectedTableFieldNames && this.selectedTableFieldNames.length) {
-      for (let selectedTableFieldName of this.selectedTableFieldNames) {
-        const fieldLabel = await getFieldLabels({
-          objectName: sObjectType,
-          fieldAPIName: selectedTableFieldName,
-        });
-        this.fieldsOnRight.push({
-          label: fieldLabel,
-          fieldname: selectedTableFieldName,
-          isDynamic: true,
-        });
-      }
-    }
+    // load remaining data from flow
     this.listCount = this.workingInputObjList.length;
     this.isLoading = true;
     this.initialInputObjList = this.workingInputObjList;
