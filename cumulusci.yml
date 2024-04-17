@@ -2,7 +2,7 @@ minimum_cumulusci_version: "3.61.1"
 project:
   name: StickySelectron
   package:
-    name: StickySelectron
+    name: Sticky Selectron
     api_version: "57.0"
     namespace: slctrn
   git:
@@ -25,6 +25,13 @@ tasks:
     options:
       required_org_code_coverage_percent: 75
 
+  deploy_example_flows:
+    description: Sticky Selectron - Example Flows
+    group: Salesforce Metadata
+    class_path: cumulusci.tasks.salesforce.Deploy
+    options:
+      path: unpackaged/config/example-flows
+
 flows:
   config_qa:
     steps:
@@ -34,6 +41,27 @@ flows:
     steps:
       3:
         task: load_dataset
+  customer_org:
+    steps:
+      1:
+        task: install_managed
+        options:
+          security_type: NONE
+      2:
+        task: deploy_example_flows
+        ui_options:
+          is_required: False
+plans:
+  install:
+    slug: install
+    title: Install Sticky Selectron
+    tier: primary
+    preflight_message: "This will install Sticky Selectron (slctrn) in your org."
+    post_install_message: "Thanks for installing Sticky Selectron (slctrn)."
+    error_message: "To get help, please visit our [Sticky Selectron Documentation](https://sfdo-community-sprints.github.io/SSSFDG/)"
+    steps:
+      1:
+        flow: customer_org
 orgs:
   scratch:
     dev_long:

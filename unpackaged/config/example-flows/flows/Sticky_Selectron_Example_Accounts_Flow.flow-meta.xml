@@ -1,55 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>54.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <assignments>
-        <name>setFieldNames</name>
-        <label>setTableFieldNames</label>
+        <name>Set_Input_Table_Field_Names</name>
+        <label>Set Input Table Field Names</label>
         <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <assignmentItems>
-            <assignToReference>inputTableFieldNames</assignToReference>
+            <assignToReference>Input_Table_Field_Names</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>Name</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>inputTableFieldNames</assignToReference>
+            <assignToReference>Input_Table_Field_Names</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>Phone</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>inputTableFieldNames</assignToReference>
+            <assignToReference>Input_Table_Field_Names</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>NumberOfEmployees</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>inputTableFieldNames</assignToReference>
+            <assignToReference>Input_Table_Field_Names</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>Website</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>inputTableFieldNames</assignToReference>
+            <assignToReference>Input_Table_Field_Names</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>Description</stringValue>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>Set_Selected_Table_Field_Names</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Selected_Table_Field_Names</name>
+        <label>Set Selected Table Field Names</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
         <assignmentItems>
-            <assignToReference>selectedTableFieldNames</assignToReference>
+            <assignToReference>Selected_Table_Field_Names</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>Name</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>selectedTableFieldNames</assignToReference>
+            <assignToReference>Selected_Table_Field_Names</assignToReference>
             <operator>Add</operator>
             <value>
                 <stringValue>NumberOfEmployees</stringValue>
@@ -59,8 +68,11 @@
             <targetReference>Get_Accounts</targetReference>
         </connector>
     </assignments>
-    <description>This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
-    <interviewLabel>Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
+    <description
+  >This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
+    <environments>Default</environments>
+    <interviewLabel
+  >Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Sticky Selectron Example Accounts Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -85,8 +97,9 @@
         <name>Get_Accounts</name>
         <label>Get Accounts</label>
         <locationX>176</locationX>
-        <locationY>278</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound
+    >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>LWC_Screen_Element</targetReference>
         </connector>
@@ -99,7 +112,7 @@
             </value>
         </filters>
         <object>Account</object>
-        <outputReference>InputAccountList</outputReference>
+        <outputReference>Input_Account_List</outputReference>
         <queriedFields>Id</queriedFields>
         <queriedFields>Name</queriedFields>
         <queriedFields>Phone</queriedFields>
@@ -108,46 +121,82 @@
         <queriedFields>Description</queriedFields>
     </recordLookups>
     <screens>
-        <name>LWC_Screen_Element</name>
-        <label>LWC Screen Element</label>
+        <name>Example_Screen_Element_With_Another_Action</name>
+        <label>Example Screen Element With Another Action</label>
         <locationX>176</locationX>
-        <locationY>398</locationY>
+        <locationY>566</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Selected_IDs_Screen_Element</targetReference>
+            <isGoTo>true</isGoTo>
+            <targetReference>LWC_Screen_Element</targetReference>
         </connector>
         <fields>
-            <name>Display_Sticky_Selectron_Accounts</name>
+            <name>Display_Static_Text</name>
+            <fieldText
+      >&lt;p&gt;We wait and do things now...&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>LWC_Screen_Element</name>
+        <label>LWC Screen Element</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference
+      >Example_Screen_Element_With_Another_Action</targetReference>
+        </connector>
+        <fields>
+            <name>Display_Sticky_Selectron</name>
             <dataTypeMappings>
                 <typeName>T</typeName>
                 <typeValue>Account</typeValue>
             </dataTypeMappings>
-            <extensionName>c:stickySelectronMain</extensionName>
+            <extensionName
+      >%%%NAMESPACE_OR_C%%%:stickySelectronMain</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
-                <name>listCount</name>
+                <name>inputTableFieldNames</name>
                 <value>
-                    <elementReference>ListCount</elementReference>
+                    <elementReference>Input_Table_Field_Names</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>inputSObjectsList</name>
                 <value>
-                    <elementReference>InputAccountList</elementReference>
+                    <elementReference>Input_Account_List</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>selectedListCount</name>
+                <name>selectedTableFieldNames</name>
                 <value>
-                    <elementReference>SelectedListCount</elementReference>
+                    <elementReference
+          >Selected_Table_Field_Names</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>selectedSObjectsList</name>
                 <value>
-                    <elementReference>SelectedAccountList</elementReference>
+                    <elementReference>Selected_Account_List</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>listCount</name>
+                <value>
+                    <elementReference>List_Count</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectedListCount</name>
+                <value>
+                    <elementReference>Selected_List_Count</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -156,51 +205,21 @@
                     <stringValue>Accounts</stringValue>
                 </value>
             </inputParameters>
-            <inputParameters>
-                <name>inputTableFieldNames</name>
-                <value>
-                    <elementReference>inputTableFieldNames</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>selectedTableFieldNames</name>
-                <value>
-                    <elementReference>selectedTableFieldNames</elementReference>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <inputsOnNextNavToAssocScrn
+      >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
-                <assignToReference>InputAccountList</assignToReference>
-                <name>inputSObjectsList</name>
+                <assignToReference>List_Count</assignToReference>
+                <name>listCount</name>
             </outputParameters>
             <outputParameters>
-                <assignToReference>SelectedListCount</assignToReference>
+                <assignToReference>Selected_List_Count</assignToReference>
                 <name>selectedListCount</name>
             </outputParameters>
             <outputParameters>
-                <assignToReference>SelectedAccountList</assignToReference>
+                <assignToReference>Selected_Account_List</assignToReference>
                 <name>selectedSObjectsList</name>
             </outputParameters>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Selected_IDs_Screen_Element</name>
-        <label>Selected IDs Screen Element</label>
-        <locationX>176</locationX>
-        <locationY>518</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>LWC_Screen_Element</targetReference>
-        </connector>
-        <fields>
-            <name>displayContactIds</name>
-            <fieldText>&lt;p&gt;We wait and do things now...&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -209,20 +228,12 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>setFieldNames</targetReference>
+            <targetReference>Set_Input_Table_Field_Names</targetReference>
         </connector>
     </start>
     <status>Draft</status>
     <variables>
-        <name>ContactList</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-        <objectType>Contact</objectType>
-    </variables>
-    <variables>
-        <name>InputAccountList</name>
+        <name>Input_Account_List</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>true</isInput>
@@ -230,14 +241,14 @@
         <objectType>Account</objectType>
     </variables>
     <variables>
-        <name>inputTableFieldNames</name>
+        <name>Input_Table_Field_Names</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>ListCount</name>
+        <name>List_Count</name>
         <dataType>Number</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -248,7 +259,7 @@
         </value>
     </variables>
     <variables>
-        <name>SelectedAccountList</name>
+        <name>Selected_Account_List</name>
         <dataType>SObject</dataType>
         <isCollection>true</isCollection>
         <isInput>true</isInput>
@@ -256,16 +267,7 @@
         <objectType>Account</objectType>
     </variables>
     <variables>
-        <description>Selected Contacts List</description>
-        <name>SelectedContactList</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-        <objectType>Contact</objectType>
-    </variables>
-    <variables>
-        <name>SelectedListCount</name>
+        <name>Selected_List_Count</name>
         <dataType>Number</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -276,20 +278,10 @@
         </value>
     </variables>
     <variables>
-        <name>selectedTableFieldNames</name>
+        <name>Selected_Table_Field_Names</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>TableHeader</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <stringValue>Participants</stringValue>
-        </value>
     </variables>
 </Flow>
