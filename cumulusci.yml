@@ -62,3 +62,8 @@ plans:
     steps:
       1:
         flow: customer_org
+orgs:
+  scratch:
+    dev_long:
+      config_file: orgs/dev.json
+      days: 30
