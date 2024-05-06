@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>59.0</apiVersion>
+    <apiVersion>60.0</apiVersion>
     <isExposed>true</isExposed>
     <masterLabel>Sticky Selectron</masterLabel>
     <targets>
@@ -10,63 +10,63 @@
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
           <propertyType
-        name="T"
-        extends="sObject"
-        label="Input sObject Type"
-        description="Select the object the component will use"
-      />
+                name="T"
+                extends="sObject"
+                label="Input sObject Type"
+                description="Select the object the component will use"
+            />
           <property
-        name="inputSObjectsList"
-        type="{T[]}"
-        label="Input sObject collection"
-        description="Collection storing the data you want to display in the component for the user to select from (displayed on the left)"
-        required="true"
-      />
+                name="inputSObjectsList"
+                type="{T[]}"
+                label="Input sObject collection"
+                description="Collection storing the data you want to display in the component for the user to select from (displayed on the left)"
+                required="true"
+            />
           <property
-        name="selectedSObjectsList"
-        type="{T[]}"
-        label="Selected sObjects collection"
-        description="Collection storing the data the user has selected (displayed on the right side)"
-        required="true"
-      />
+                name="selectedSObjectsList"
+                type="{T[]}"
+                label="Selected sObjects collection"
+                description="Collection storing the data the user has selected (displayed on the right side)"
+                required="true"
+            />
           <property
-        name="tableHeader"
-        type="String"
-        label="Table Header"
-        description="Table header text to display"
-        required="true"
-        default="Records"
-      />
+                name="tableHeader"
+                type="String"
+                label="Table Header"
+                description="Table header text to display"
+                required="true"
+                default="Records"
+            />
           <property
-        name="listCount"
-        type="Integer"
-        label="Output the count of inputSObjectsList records"
-        description="This property will output the count of items in the input sObject collection (number of records in the left table)"
-        default="0"
-      /> 
+                name="listCount"
+                type="Integer"
+                label="Output the count of inputSObjectsList records"
+                description="This property will output the count of items in the input sObject collection (number of records in the left table)"
+                default="0"
+            /> 
           <property
-        name="selectedListCount"
-        type="Integer"
-        label="Output the count of selectedSObjectsList records"
-        description="This property will output the count of selected sObject records (number of records in the right table)"
-        default="0"
-      /> 
+                name="selectedListCount"
+                type="Integer"
+                label="Output the count of selectedSObjectsList records"
+                description="This property will output the count of selected sObject records (number of records in the right table)"
+                default="0"
+            /> 
           <property
-        name="inputTableFieldNames"
-        type="String[]"
-        label="Input (Left) Table's Field Names"
-        description="Collection of strings to specify the fields (API names) for left table"
-        required="true"
-        default="Id"
-      />
+                name="inputTableFieldNames"
+                type="String[]"
+                label="Input (Left) Table's Field Names"
+                description="Collection of strings to specify the fields (API names) for left table"
+                required="true"
+                default="Id"
+            />
           <property
-        name="selectedTableFieldNames"
-        type="String[]"
-        label="Selected (Right) Table's Field Names"
-        description="Collection of strings to specify the fields (API names) for right table"
-        required="true"
-        default="Id"
-      /> 
+                name="selectedTableFieldNames"
+                type="String[]"
+                label="Selected (Right) Table's Field Names"
+                description="Collection of strings to specify the fields (API names) for right table"
+                required="true"
+                default="Id"
+            /> 
         </targetConfig>
     </targetConfigs>
 
