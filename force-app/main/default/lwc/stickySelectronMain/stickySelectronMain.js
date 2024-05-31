@@ -201,8 +201,8 @@ export default class StickySelectronMain extends LightningElement {
 
     handleColSort(event) {
         let fieldName = event.currentTarget.dataset.fieldname;
-        // We don't toggle Select (it is always isAsc = true)
-        if (fieldName !== 'Select' && this.sortedField === fieldName) {
+        // All ascending and desceding sorts for all columns (including Select)
+        if (this.sortedField === fieldName) {
             // If this.sortedField === fieldName it means we are toggling ascending or descending
             this.isAsc = !this.isAsc;
         } else {
