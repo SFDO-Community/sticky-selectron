@@ -69,10 +69,10 @@
         </connector>
     </assignments>
     <description
-  >This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
+    >This is an example flow for the Sticky Selectron LWC that shows the component working with Account-type sObjects</description>
     <environments>Default</environments>
     <interviewLabel
-  >Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
+    >Sticky Selectron Example Flow (Accounts) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Sticky Selectron Example Accounts Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -99,7 +99,7 @@
         <locationX>176</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound
-    >false</assignNullValuesIfNoRecordsFound>
+        >false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>LWC_Screen_Element</targetReference>
         </connector>
@@ -135,7 +135,7 @@
         <fields>
             <name>Display_Static_Text</name>
             <fieldText
-      >&lt;p&gt;We wait and do things now...&lt;/p&gt;</fieldText>
+            >&lt;p&gt;We wait and do things now...&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -151,7 +151,7 @@
         <allowPause>true</allowPause>
         <connector>
             <targetReference
-      >Example_Screen_Element_With_Another_Action</targetReference>
+            >Example_Screen_Element_With_Another_Action</targetReference>
         </connector>
         <fields>
             <name>Display_Sticky_Selectron</name>
@@ -160,7 +160,7 @@
                 <typeValue>Account</typeValue>
             </dataTypeMappings>
             <extensionName
-      >%%%NAMESPACE_OR_C%%%:stickySelectronMain</extensionName>
+            >%%%NAMESPACE_OR_C%%%:stickySelectronMain</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>inputTableFieldNames</name>
@@ -178,7 +178,7 @@
                 <name>selectedTableFieldNames</name>
                 <value>
                     <elementReference
-          >Selected_Table_Field_Names</elementReference>
+                    >Selected_Table_Field_Names</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -206,7 +206,7 @@
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn
-      >UseStoredValues</inputsOnNextNavToAssocScrn>
+            >UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>List_Count</assignToReference>

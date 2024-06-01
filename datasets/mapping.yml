@@ -1,9 +1,9 @@
 Insert Accounts:
-  sf_object: Account
-  table: Account
-  fields:
-    - Name
-    - Phone
-    - NumberOfEmployees
-    - Description
-    - Website
+    sf_object: Account
+    table: Account
+    fields:
+        - Name
+        - Phone
+        - NumberOfEmployees
+        - Description
+        - Website
