@@ -1,45 +1,45 @@
 .c-container {
-  margin: 10px 0 20px 0;
-  width: 100%;
+    margin: 10px 0 20px 0;
+    width: 100%;
 }
 div.grid-search-container {
-  width: 35%;
+    width: 35%;
 }
 div.grid-search lightning-input {
-  margin-top: -0.25em;
+    margin-top: -0.25em;
 }
 div.grid-buttons-container {
-  width: 100%;
+    width: 100%;
 }
 div.grid-select-all-button {
-  width: 30%;
-  padding-left: 2.6em;
+    width: 30%;
+    padding-left: 2.6em;
 }
 div.grid-deselect-all-button {
-  width: 30%;
+    width: 30%;
 }
 div.grid-main {
-  width: 65%;
-  border: 2px solid #eeeeee;
-  height: 400px;
+    width: 65%;
+    border: 2px solid #eeeeee;
+    height: 400px;
 }
 div.grid-selected {
-  width: 30%;
-  border: 2px solid #eeeeee;
-  height: 400px;
+    width: 30%;
+    border: 2px solid #eeeeee;
+    height: 400px;
 }
 div.grid-selected th div {
-  margin: 0.6em;
+    margin: 0.6em;
 }
 div.grid-count {
-  width: 30%;
-  margin-bottom: 1em;
+    width: 30%;
+    margin-bottom: 1em;
 }
 div.grid-count {
-  font-weight: bold;
+    font-weight: bold;
 }
 p.none-selected-message {
-  color: red;
-  font-weight: bold;
-  font-size: large;
+    color: red;
+    font-weight: bold;
+    font-size: large;
 }
