@@ -1,13 +1,13 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true,
-      "versionNumber": "0.1.1.NEXT"
-    }
-  ],
-  "name": "sticky-selectron",
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "59.0"
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "versionNumber": "0.1.1.NEXT"
+        }
+    ],
+    "name": "sticky-selectron",
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "59.0"
 }
