@@ -8,4 +8,6 @@
 .sfdx/
 .vscode/
 coverage/
+.github/
 jsconfig.json
+package-lock.json
