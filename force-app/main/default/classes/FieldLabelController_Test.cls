@@ -1,5 +1,5 @@
 @isTest
-public class FieldLabelControllerTest {
+public class FieldLabelController_Test {
     @isTest
     static void labelTest() {
         String fieldApiName = 'CreatedDate';
