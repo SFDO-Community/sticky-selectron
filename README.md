@@ -8,11 +8,6 @@ Sticky Selectron is a Data Table Lightning Web Component for easy record selecti
 
 For more information on the project's installation instructions and documentation, please visit our [documentation website](https://sfdo-community-sprints.github.io/sticky-selectron-documentation/).
 
-## Installation
-
--   [Sandbox & Scratch Orgs (Latest Release)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04t6g000007zMhqAAE)
--   [Production & Developer Edition Orgs (Latest Release)](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t6g000007zMhqAAE)
--   [Current and past releases](https://github.com/SFDO-Community/sticky-selectron/releases)
 
 ## Questions and Community Support
 
