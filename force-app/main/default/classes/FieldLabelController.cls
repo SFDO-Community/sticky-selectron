@@ -2,7 +2,7 @@ public with sharing class FieldLabelController {
     @AuraEnabled(cacheable=true)
     public static String getFieldLabels(
         String objectName,
-        String fieldAPIName
+        String fieldApiName
     ) {
         String label = null;
         try {
@@ -11,7 +11,7 @@ public with sharing class FieldLabelController {
                 .get(objectName)
                 .getDescribe()
                 .fields.getMap();
-            label = fieldMap.get(fieldAPIName).getDescribe().getLabel();
+            label = fieldMap.get(fieldApiName).getDescribe().getLabel();
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
