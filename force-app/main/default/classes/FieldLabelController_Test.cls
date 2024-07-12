@@ -7,7 +7,11 @@ public class FieldLabelController_Test {
             'Account',
             fieldApiName
         );
-        System.assertEquals('Created Date', fieldLabel);
+        System.assertEquals(
+            'Created Date',
+            fieldLabel,
+            'Field label does not match'
+        );
     }
     @isTest
     static void labelException() {
@@ -17,8 +21,13 @@ public class FieldLabelController_Test {
                 'Account',
                 fieldApiName
             );
+            System.assertEquals(
+                'Created Date',
+                fieldLabel,
+                'This should have thrown an exception'
+            );
         } catch (Exception ex) {
-            System.assert(true);
+            System.assert(true, 'Exception was thrown');
         }
     }
 
@@ -28,9 +37,13 @@ public class FieldLabelController_Test {
         try {
             //insert acct;
             String sObjectApiName = FieldLabelController.getSObjectType(acct);
-            System.assertEquals('Account', sObjectApiName);
+            System.assertEquals(
+                'Account',
+                sObjectApiName,
+                'sObject type name does not match'
+            );
         } catch (Exception ex) {
-            System.assert(true);
+            System.assert(true, 'Exception was thrown');
         }
     }
 }
