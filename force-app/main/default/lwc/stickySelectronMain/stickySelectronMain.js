@@ -102,6 +102,7 @@ export default class StickySelectronMain extends LightningElement {
         if (sObjectType) {
             console.log('sObjectType: ', sObjectType);
             if (this.inputTableFieldNames && this.inputTableFieldNames.length) {
+                /* eslint-disable no-await-in-loop */
                 for (let inputTableFieldName of this.inputTableFieldNames) {
                     try {
                         const fieldLabel = await getFieldLabels({
@@ -135,6 +136,7 @@ export default class StickySelectronMain extends LightningElement {
                 this.selectedTableFieldNames &&
                 this.selectedTableFieldNames.length
             ) {
+                /* eslint-disable no-await-in-loop */
                 for (let selectedTableFieldName of this
                     .selectedTableFieldNames) {
                     try {
