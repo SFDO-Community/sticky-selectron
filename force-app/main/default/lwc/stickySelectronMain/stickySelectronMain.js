@@ -107,7 +107,7 @@ export default class StickySelectronMain extends LightningElement {
                     try {
                         const fieldLabel = await getFieldLabels({
                             objectName: sObjectType,
-                            fieldAPIName: inputTableFieldName
+                            fieldApiName: inputTableFieldName
                         });
                         this.fieldsOnLeft.push({
                             label: fieldLabel,
@@ -142,7 +142,7 @@ export default class StickySelectronMain extends LightningElement {
                     try {
                         const fieldLabel = await getFieldLabels({
                             objectName: sObjectType,
-                            fieldAPIName: selectedTableFieldName
+                            fieldApiName: selectedTableFieldName
                         });
                         this.fieldsOnRight.push({
                             label: fieldLabel,
