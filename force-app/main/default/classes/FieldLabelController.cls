@@ -5,6 +5,73 @@
  */
 public with sharing class FieldLabelController {
     /**
+     * @description Wrapper class to hold the response data
+     */
+    public class FieldLabelResponse {
+        @AuraEnabled
+        public String sObjectType { get; set; }
+        @AuraEnabled
+        public Map<String, String> fieldLabels { get; set; }
+
+        public FieldLabelResponse() {
+            this.fieldLabels = new Map<String, String>();
+        }
+    }
+
+    /**
+     * @description getBulkFieldInfo retrieves both sObjectType and multiple field labels
+     * in a single call
+     * @param record sObject input record
+     * @param fieldApiNames List of field API names
+     * @return FieldLabelResponse containing sObjectType and map of field labels
+     */
+    @AuraEnabled(cacheable=true)
+    public static FieldLabelResponse getBulkFieldInfo(
+        sObject record,
+        List<String> fieldApiNames
+    ) {
+        FieldLabelResponse response = new FieldLabelResponse();
+
+        try {
+            // Get sObjectType
+            if (record != null && record.Id != null) {
+                Id recordId = record.Id;
+                response.sObjectType = recordId.getSObjectType()
+                    .getDescribe()
+                    .getName();
+            }
+
+            // Get field labels
+            if (
+                fieldApiNames != null &&
+                !fieldApiNames.isEmpty() &&
+                record != null &&
+                record.Id != null
+            ) {
+                Map<String, Schema.SObjectField> fieldMap = Schema.getGlobalDescribe()
+                    .get(response.sObjectType)
+                    .getDescribe()
+                    .fields.getMap();
+
+                for (String fieldApiName : fieldApiNames) {
+                    if (fieldMap.containsKey(fieldApiName)) {
+                        response.fieldLabels.put(
+                            fieldApiName,
+                            fieldMap.get(fieldApiName).getDescribe().getLabel()
+                        );
+                    } else {
+                        throw new AuraHandledException('Invalid field name');
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+
+        return response;
+    }
+
+    /**
      * @description getFieldLabels retrieves field labels
      * for a given object and field API name
      * @param objectName Input object name
@@ -41,7 +108,6 @@ public with sharing class FieldLabelController {
         try {
             Id recordId = record.Id;
             sObjectType = recordId.getSObjectType().getDescribe().getName();
-            //System.debug(System.info,'sObjectType: ' + sObjectType);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
