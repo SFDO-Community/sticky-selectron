@@ -20,12 +20,17 @@ import TIMEZONE from '@salesforce/i18n/timeZone';
     'URL': 'url'
 };*/
 
-function formatDateLocale(dateStr) {
-    return new Intl.DateTimeFormat(LOCALE, {
-        timeZone: TIMEZONE,
-        dateStyle: 'short', // 'full', 'long', 'medium', or 'short'
-        timeStyle: 'short' // 'full', 'long', 'medium', or 'short'
-    }).format(new Date(dateStr));
+function formatDateTimeLocale(dateStr, hasDate, hasTime) {
+    const options = {
+        timeZone: TIMEZONE
+    };
+    if (hasDate) {
+        options.dateStyle = 'medium';
+    }
+    if (hasTime) {
+        options.timeStyle = 'short';
+    }
+    return new Intl.DateTimeFormat(LOCALE, options).format(new Date(dateStr));
 }
 
 function formatCurrencyLocale(amount) {
@@ -55,11 +60,31 @@ export default class StickySelectronDataCell extends LightningElement {
     @api sfType;
     @api sfScale;
 
+    get isBooleanType() {
+        return this.sfType === 'BOOLEAN';
+    }
+
+    get getBooleanValue() {
+        return this.object?.[this.fieldName];
+    }
+
     get fieldValForObject() {
         const inputVal = this.object?.[this.fieldName];
         if (inputVal) {
             if (this.sfType === 'DATETIME') {
-                return formatDateLocale(inputVal);
+                const hasDate = true;
+                const hasTime = true;
+                return formatDateTimeLocale(inputVal, hasDate, hasTime);
+            }
+            if (this.sfType === 'DATE') {
+                const hasDate = true;
+                const hasTime = false;
+                return formatDateTimeLocale(inputVal, hasDate, hasTime);
+            }
+            if (this.sfType === 'TIME') {
+                const hasDate = false;
+                const hasTime = true;
+                return formatDateTimeLocale(inputVal, hasDate, hasTime);
             }
             if (this.sfType === 'CURRENCY') {
                 return formatCurrencyLocale(inputVal);
