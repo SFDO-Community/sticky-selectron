@@ -117,17 +117,17 @@ private class FieldLabelController_Test {
         // Verify actual label values (these are standard field labels)
         System.assertEquals(
             'Account Name',
-            response.fieldLabels.get('Name'),
+            response.fieldLabels.get('Name').label,
             'Name field should have correct label'
         );
         System.assertEquals(
             'Account Type',
-            response.fieldLabels.get('Type'),
+            response.fieldLabels.get('Type').label,
             'Type field should have correct label'
         );
         System.assertEquals(
             'Industry',
-            response.fieldLabels.get('Industry'),
+            response.fieldLabels.get('Industry').label,
             'Industry field should have correct label'
         );
     }
