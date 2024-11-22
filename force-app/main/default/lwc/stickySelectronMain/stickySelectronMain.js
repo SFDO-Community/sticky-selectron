@@ -100,12 +100,18 @@ export default class StickySelectronMain extends LightningElement {
                     this.inputTableFieldNames.length
                 ) {
                     this.inputTableFieldNames.forEach((fieldName) => {
-                        const fieldLabel = fieldInfo.fieldLabels[fieldName];
+                        const fieldLabel =
+                            fieldInfo.fieldLabels[fieldName].label;
+                        const fieldType = fieldInfo.fieldLabels[fieldName].type;
+                        const fieldScale =
+                            fieldInfo.fieldLabels[fieldName].scale;
                         if (fieldLabel) {
                             this.fieldsOnLeft.push({
                                 label: fieldLabel,
                                 fieldname: fieldName,
-                                isDynamic: true
+                                isDynamic: true,
+                                sfType: fieldType,
+                                sfScale: fieldScale
                             });
                         } else {
                             this.showError(
@@ -126,7 +132,8 @@ export default class StickySelectronMain extends LightningElement {
                             this.fieldsOnRight.push({
                                 label: fieldLabel,
                                 fieldname: fieldName,
-                                isDynamic: true
+                                isDynamic: true,
+                                sfType: ''
                             });
                         } else {
                             this.showError(

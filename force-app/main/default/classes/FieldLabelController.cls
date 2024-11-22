@@ -4,6 +4,14 @@
  * the sObjectType of a given record.
  */
 public with sharing class FieldLabelController {
+    public class FieldLabelRetDesc {
+        @AuraEnabled
+        public String label { get; set; }
+        @AuraEnabled
+        public String type { get; set; }
+        @AuraEnabled
+        public Integer scale { get; set; }
+    }
     /**
      * @description Wrapper class to hold the response data
      */
@@ -11,10 +19,10 @@ public with sharing class FieldLabelController {
         @AuraEnabled
         public String sObjectType { get; set; }
         @AuraEnabled
-        public Map<String, String> fieldLabels { get; set; }
+        public Map<String, FieldLabelRetDesc> fieldLabels { get; set; }
 
         public FieldLabelResponse() {
-            this.fieldLabels = new Map<String, String>();
+            this.fieldLabels = new Map<String, FieldLabelRetDesc>();
         }
     }
 
@@ -33,12 +41,12 @@ public with sharing class FieldLabelController {
         FieldLabelResponse response = new FieldLabelResponse();
 
         try {
+            Schema.DescribeSObjectResult sObjDescribe = null;
             // Get sObjectType
             if (record != null && record.Id != null) {
                 Id recordId = record.Id;
-                response.sObjectType = recordId.getSObjectType()
-                    .getDescribe()
-                    .getName();
+                sObjDescribe = recordId.getSObjectType().getDescribe();
+                response.sObjectType = sObjDescribe.getName();
             }
 
             // Get field labels
@@ -46,19 +54,25 @@ public with sharing class FieldLabelController {
                 fieldApiNames != null &&
                 !fieldApiNames.isEmpty() &&
                 record != null &&
-                record.Id != null
+                record.Id != null &&
+                sObjDescribe != null
             ) {
-                Map<String, Schema.SObjectField> fieldMap = Schema.getGlobalDescribe()
-                    .get(response.sObjectType)
-                    .getDescribe()
-                    .fields.getMap();
+                Map<String, Schema.SObjectField> fieldMap = sObjDescribe.fields.getMap();
 
                 for (String fieldApiName : fieldApiNames) {
                     if (fieldMap.containsKey(fieldApiName)) {
-                        response.fieldLabels.put(
-                            fieldApiName,
-                            fieldMap.get(fieldApiName).getDescribe().getLabel()
-                        );
+                        Schema.DescribeFieldResult fieldDesc = fieldMap.get(
+                                fieldApiName
+                            )
+                            .getDescribe();
+                        FieldLabelRetDesc thisFieldResult = new FieldLabelRetDesc();
+                        thisFieldResult.label = fieldDesc.getLabel();
+                        thisFieldResult.type = fieldDesc.getType().name();
+                        thisFieldResult.scale = 0;
+                        if (thisFieldResult.type == 'DOUBLE') {
+                            thisFieldResult.scale = fieldDesc.getScale();
+                        }
+                        response.fieldLabels.put(fieldApiName, thisFieldResult);
                     } else {
                         throw new AuraHandledException('Invalid field name');
                     }
