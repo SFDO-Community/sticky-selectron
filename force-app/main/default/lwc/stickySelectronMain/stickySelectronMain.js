@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable @lwc/lwc/no-api-reassignments */
 import { LightningElement, api, track } from 'lwc';
-import getFieldLabels from '@salesforce/apex/FieldLabelController.getFieldLabels';
-import getSObjectType from '@salesforce/apex/FieldLabelController.getSObjectType';
+import getBulkFieldInfo from '@salesforce/apex/FieldLabelController.getBulkFieldInfo';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 // Note that sometimes we are dealing with a Proxy object and want to print it to console
@@ -79,15 +78,79 @@ export default class StickySelectronMain extends LightningElement {
     console.log("sObjectApiName: ", this.sObjectApiName);
     console.log("workingInputObjList: ", this.workingInputObjList);
     */
-        // get sobject type and labels for fields
-        let sObjectType = null;
+        // New code to bulk fetch the field labels from the record
         try {
-            sObjectType = await getSObjectType({
-                record: this.workingInputObjList[0]
+            // Create array of all field names we need labels for
+            const allFieldNames = [
+                ...(this.inputTableFieldNames || []),
+                ...(this.selectedTableFieldNames || [])
+            ];
+
+            // Get all field info in a single call
+            const fieldInfo = await getBulkFieldInfo({
+                record: this.workingInputObjList[0],
+                fieldApiNames: allFieldNames
             });
+
+            // Process the response
+            if (fieldInfo) {
+                // Process input table fields
+                if (
+                    this.inputTableFieldNames &&
+                    this.inputTableFieldNames.length
+                ) {
+                    this.inputTableFieldNames.forEach((fieldName) => {
+                        const fieldLabel =
+                            fieldInfo.fieldLabels[fieldName].label;
+                        const fieldType = fieldInfo.fieldLabels[fieldName].type;
+                        const fieldScale =
+                            fieldInfo.fieldLabels[fieldName].scale;
+                        if (fieldLabel) {
+                            this.fieldsOnLeft.push({
+                                label: fieldLabel,
+                                fieldname: fieldName,
+                                isDynamic: true,
+                                sfType: fieldType,
+                                sfScale: fieldScale
+                            });
+                        } else {
+                            this.showError(
+                                `Could not find label for field: ${fieldName}`
+                            );
+                        }
+                    });
+                }
+
+                // Process selected table fields
+                if (
+                    this.selectedTableFieldNames &&
+                    this.selectedTableFieldNames.length
+                ) {
+                    this.selectedTableFieldNames.forEach((fieldName) => {
+                        const fieldLabel =
+                            fieldInfo.fieldLabels[fieldName].label;
+                        const fieldType = fieldInfo.fieldLabels[fieldName].type;
+                        const fieldScale =
+                            fieldInfo.fieldLabels[fieldName].scale;
+                        if (fieldLabel) {
+                            this.fieldsOnRight.push({
+                                label: fieldLabel,
+                                fieldname: fieldName,
+                                isDynamic: true,
+                                sfType: fieldType,
+                                sfScale: fieldScale
+                            });
+                        } else {
+                            this.showError(
+                                `Could not find label for field: ${fieldName}`
+                            );
+                        }
+                    });
+                }
+            }
         } catch (error) {
             const msg =
-                'An error has occurred when loading sObject Type, please check component configuration and APEX debug logs for more information. (' +
+                'An error has occurred when loading sObject Type and field labels, please check component configuration and APEX debug logs for more information. (' +
                 error.body.message +
                 ')';
             console.error('Error: ', error);
@@ -99,75 +162,7 @@ export default class StickySelectronMain extends LightningElement {
             });
             this.dispatchEvent(evt);
         }
-        if (sObjectType) {
-            console.log('sObjectType: ', sObjectType);
-            if (this.inputTableFieldNames && this.inputTableFieldNames.length) {
-                /* eslint-disable no-await-in-loop */
-                for (let inputTableFieldName of this.inputTableFieldNames) {
-                    try {
-                        const fieldLabel = await getFieldLabels({
-                            objectName: sObjectType,
-                            fieldApiName: inputTableFieldName
-                        });
-                        this.fieldsOnLeft.push({
-                            label: fieldLabel,
-                            fieldname: inputTableFieldName,
-                            isDynamic: true
-                        });
-                    } catch (error) {
-                        const msg =
-                            'An error has occurred when loading field labels for input table field name [' +
-                            inputTableFieldName +
-                            '], please check component configuration and APEX debug logs for more information. (' +
-                            error.body.message +
-                            ')';
-                        console.error('Error: ', error);
-                        console.error('Msg: ', msg);
-                        const evt = new ShowToastEvent({
-                            title: 'Sticky Selectron Error',
-                            message: msg,
-                            variant: 'error'
-                        });
-                        this.dispatchEvent(evt);
-                    }
-                }
-            }
-            if (
-                this.selectedTableFieldNames &&
-                this.selectedTableFieldNames.length
-            ) {
-                /* eslint-disable no-await-in-loop */
-                for (let selectedTableFieldName of this
-                    .selectedTableFieldNames) {
-                    try {
-                        const fieldLabel = await getFieldLabels({
-                            objectName: sObjectType,
-                            fieldApiName: selectedTableFieldName
-                        });
-                        this.fieldsOnRight.push({
-                            label: fieldLabel,
-                            fieldname: selectedTableFieldName,
-                            isDynamic: true
-                        });
-                    } catch (error) {
-                        const msg =
-                            'An error has occurred when loading field labels for selected table field name [' +
-                            selectedTableFieldName +
-                            '], please check component configuration and APEX debug logs for more information. (' +
-                            error.body.message +
-                            ')';
-                        console.error('Error: ', error);
-                        console.error('Msg: ', msg);
-                        const evt = new ShowToastEvent({
-                            title: 'Sticky Selectron Error',
-                            message: msg,
-                            variant: 'error'
-                        });
-                        this.dispatchEvent(evt);
-                    }
-                }
-            }
-        }
+
         // load remaining data from flow
         this.listCount = this.workingInputObjList.length;
         this.isLoading = true;
