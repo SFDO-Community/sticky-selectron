@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ssCheckbox__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>For use in testing Sticky Selectron</description>
+    <label>ssCheckbox</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>
