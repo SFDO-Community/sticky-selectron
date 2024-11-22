@@ -1,5 +1,15 @@
 <template>
-    <div title={fieldValForObject} class="slds-truncate">
-        {fieldValForObject}
-    </div>
+    <template if:true={isBooleanType}>
+        <div class="slds-form-element">
+            <label class="slds-checkbox">
+                <input type="checkbox" checked={getBooleanValue} disabled />
+                <span class="slds-checkbox_faux"></span>
+            </label>
+        </div>
+    </template>
+    <template if:false={isBooleanType}>
+        <div title={fieldValForObject} class="slds-truncate">
+            {fieldValForObject}
+        </div>
+    </template>
 </template>
