@@ -90,7 +90,7 @@ export default class StickySelectronDataCell extends LightningElement {
                 return formatCurrencyLocale(inputVal);
             }
             if (this.sfType === 'PERCENT') {
-                return formatPercentLocale(inputVal);
+                return formatPercentLocale(inputVal / 100);
             }
             if (this.sfType === 'DOUBLE') {
                 return formatDoubleLocale(inputVal, this.sfScale);
