@@ -70,7 +70,11 @@ export default class StickySelectronDataCell extends LightningElement {
 
     get fieldValForObject() {
         const inputVal = this.object?.[this.fieldName];
-        if (inputVal) {
+        if (
+            inputVal ||
+            this.sfType === 'CURRENCY' ||
+            this.sfType === 'PERCENT'
+        ) {
             if (this.sfType === 'DATETIME') {
                 const hasDate = true;
                 const hasTime = true;
