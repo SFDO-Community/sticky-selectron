@@ -70,13 +70,7 @@ export default class StickySelectronDataCell extends LightningElement {
 
     get fieldValForObject() {
         const inputVal = this.object?.[this.fieldName];
-        // We may get a zero value from Apex that should still be rendered with our JS formatting
-        if (
-            inputVal ||
-            this.sfType === 'CURRENCY' ||
-            this.sfType === 'PERCENT' ||
-            this.sfType === 'DOUBLE'
-        ) {
+        if (inputVal) {
             if (this.sfType === 'DATETIME') {
                 const hasDate = true;
                 const hasTime = true;
