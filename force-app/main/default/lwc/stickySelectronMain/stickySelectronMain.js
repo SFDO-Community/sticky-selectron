@@ -36,6 +36,18 @@ export default class StickySelectronMain extends LightningElement {
     @api initialListCount;
     isLoading = false;
 
+    // We want to continue showing the loading icon if our LWC hasn't rendered yet,
+    // if the input list is empty, or if the input table field metadata hasn't finished yet
+    // Note that we compare the inputTableFieldNames length to the fieldsOnLeft length - 1 because of the Select column that is in the fieldsOnLeft but
+    // not in the inputTableFieldNames
+    get stillShowLoading() {
+        return (
+            this.isLoading ||
+            this.workingInputObjList.length === 0 ||
+            this.inputTableFieldNames.length !== this.fieldsOnLeft.length - 1
+        );
+    }
+
     @api inputTableFieldNames;
     @api selectedTableFieldNames;
 
