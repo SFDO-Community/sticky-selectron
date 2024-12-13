@@ -25,10 +25,20 @@ function formatDateTimeLocale(dateStr, hasDate, hasTime) {
         timeZone: TIMEZONE
     };
     if (hasDate) {
-        options.dateStyle = 'medium';
+        // Note that setting to short will have a 2-digit year, but we want 4 digit
+        //options.dateStyle = 'short';
+
+        options.year = 'numeric';
+        options.month = '2-digit';
+        options.day = '2-digit';
     }
+    // If we leave default formatting (not setting date and time options) then time is not shown
     if (hasTime) {
-        options.timeStyle = 'short';
+        // timeStyle short is the format we want, but since we need a 4 digit year, we need to set the time components manually
+        //options.timeStyle = 'short';
+
+        options.hour = '2-digit';
+        options.minute = '2-digit';
     }
     return new Intl.DateTimeFormat(LOCALE, options).format(new Date(dateStr));
 }
