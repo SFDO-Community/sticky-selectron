@@ -38,14 +38,23 @@ export default class StickySelectronMain extends LightningElement {
 
     // We want to continue showing the loading icon if our LWC hasn't rendered yet,
     // if the input list is empty, or if the input table field metadata hasn't finished yet
+    // Also we have to detect if the input list is empty because someone searched and there are no hits
     // Note that we compare the inputTableFieldNames length to the fieldsOnLeft length - 1 because of the Select column that is in the fieldsOnLeft but
     // not in the inputTableFieldNames
     get stillShowLoading() {
-        return (
+        const shouldShowLoading =
             this.isLoading ||
             this.workingInputObjList.length === 0 ||
-            this.inputTableFieldNames.length !== this.fieldsOnLeft.length - 1
-        );
+            this.inputTableFieldNames.length !== this.fieldsOnLeft.length - 1;
+        if (shouldShowLoading) {
+            const inp = this.template.querySelector('lightning-input');
+            const searchKey = inp?.value;
+            // If there is a search key set, we should not show the loading icon
+            if (searchKey && this.workingInputObjList.length === 0) {
+                return false;
+            }
+        }
+        return shouldShowLoading;
     }
 
     @api inputTableFieldNames;
@@ -355,8 +364,15 @@ export default class StickySelectronMain extends LightningElement {
                                     recs.push(rec);
                                     break;
                                 }
+                                // Added logic to replace %, /, and $ from search key because
+                                // we are searching just the values from Salesforce (not the HTML displayed)
                             } else if (typeof val === 'number') {
-                                if (val.toString().includes(searchKey)) {
+                                const searchKeyToCheck = searchKey
+                                    .replaceAll('%', '')
+                                    .replaceAll('/', '')
+                                    .replaceAll('$', '')
+                                    .replaceAll(',', '');
+                                if (val.toString().includes(searchKeyToCheck)) {
                                     recs.push(rec);
                                     break;
                                 }
