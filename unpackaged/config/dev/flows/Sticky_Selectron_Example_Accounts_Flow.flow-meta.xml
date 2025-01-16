@@ -123,7 +123,6 @@
         <queriedFields>ssCurrency__c</queriedFields>
         <queriedFields>ssDateTime__c</queriedFields>
         <queriedFields>AnnualRevenue</queriedFields>
-        <queriedFields>NewCurrency__c</queriedFields>
         <queriedFields>CreatedDate</queriedFields>
     </recordLookups>
     <screens>
