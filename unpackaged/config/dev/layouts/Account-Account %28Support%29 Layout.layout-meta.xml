@@ -43,7 +43,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>NewCurrency__c</field>
+                <field>ssCurrency__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -52,6 +52,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ssDate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ssDateTime__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
