@@ -63,9 +63,60 @@ function formatPercentLocale(amount) {
     }).format(amount);
 }
 
+function doesTypeNeedFormatting(sfType) {
+    return (
+        sfType === 'DATETIME' ||
+        sfType === 'DATE' ||
+        sfType === 'TIME' ||
+        sfType === 'CURRENCY' ||
+        sfType === 'PERCENT' ||
+        sfType === 'DOUBLE'
+    );
+}
+
+function getFormattedStringForType(inputVal, sfType, sfScale) {
+    if (doesTypeNeedFormatting(sfType)) {
+        // We may get a zero value from Apex that should still be rendered with our JS formatting
+        if (
+            inputVal ||
+            sfType === 'CURRENCY' ||
+            sfType === 'PERCENT' ||
+            sfType === 'DOUBLE'
+        ) {
+            if (sfType === 'DATETIME') {
+                const hasDate = true;
+                const hasTime = true;
+                return formatDateTimeLocale(inputVal, hasDate, hasTime);
+            }
+            if (sfType === 'DATE') {
+                const hasDate = true;
+                const hasTime = false;
+                return formatDateTimeLocale(inputVal, hasDate, hasTime);
+            }
+            if (sfType === 'TIME') {
+                const hasDate = false;
+                const hasTime = true;
+                return formatDateTimeLocale(inputVal, hasDate, hasTime);
+            }
+            if (sfType === 'CURRENCY') {
+                return formatCurrencyLocale(inputVal);
+            }
+            if (sfType === 'PERCENT') {
+                return formatPercentLocale(inputVal / 100);
+            }
+            if (sfType === 'DOUBLE') {
+                return formatDoubleLocale(inputVal, sfScale);
+            }
+        }
+    }
+    return inputVal;
+}
+
 export {
     formatDateTimeLocale,
     formatCurrencyLocale,
     formatDoubleLocale,
-    formatPercentLocale
+    formatPercentLocale,
+    doesTypeNeedFormatting,
+    getFormattedStringForType
 };
