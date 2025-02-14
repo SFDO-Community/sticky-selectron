@@ -3,6 +3,7 @@
 import { LightningElement, api, track } from 'lwc';
 import getBulkFieldInfo from '@salesforce/apex/FieldLabelController.getBulkFieldInfo';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { getFormattedStringForType } from 'c/stickySelectronUtils';
 
 // Note that sometimes we are dealing with a Proxy object and want to print it to console
 // while debugging
@@ -353,7 +354,14 @@ export default class StickySelectronMain extends LightningElement {
                             fieldAPIName &&
                             recCopy[fieldAPIName] !== undefined
                         ) {
-                            valuesArray.push(recCopy[fieldAPIName]);
+                            const valToAdd = recCopy[fieldAPIName];
+                            valuesArray.push(
+                                getFormattedStringForType(
+                                    valToAdd,
+                                    fieldObj.sfType,
+                                    fieldObj.sfScale
+                                )
+                            );
                         }
                     }
 
