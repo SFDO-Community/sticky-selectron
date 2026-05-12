@@ -1,6 +1,8 @@
-# Sticky Selectron
+# Sticky Selectron (ARCHIVED PROJECT)
 
 ## Overview
+
+NOTE: This project is now archived. Reach out to the Community Team if you have questions about this repo.
 
 Sticky Selectron is a Data Table Lightning Web Component for easy record selection in a screen flow that will persist (or remain “sticky”) across flow screens.
 
